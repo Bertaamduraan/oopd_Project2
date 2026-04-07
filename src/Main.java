@@ -1,4 +1,5 @@
 import Persistence.sql.SQLConnector;
+import Presentation.LoginView;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +17,7 @@ public class Main {
             try {
                 while (rs.next()) {
                     // Replace with your actual column names
-                    System.out.println(rs.getString("column1") + " " + rs.getString("column2"));
+                    System.out.println(rs.getString("user_id") + " " + rs.getString("password"));
                 }
             } catch (SQLException e) {
                 System.err.println("Error reading results --> " + e.getMessage());
@@ -27,5 +28,10 @@ public class Main {
         } else {
             System.err.println("Connection failed!");
         }
+
+
+        // VIEW TESTING
+        LoginView loginView = new LoginView();
+        loginView.showLoginView();
     }
 }
