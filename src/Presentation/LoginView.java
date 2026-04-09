@@ -146,7 +146,9 @@ public class LoginView {
         jbForgotPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
         jbForgotPassword.setAlignmentY(Component.CENTER_ALIGNMENT);
 
+
         jpButtons.add(jbSignUp);
+        jpButtons.add(Box.createVerticalStrut(10));
         jpButtons.add(jbForgotPassword);
     }
 
