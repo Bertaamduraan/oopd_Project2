@@ -1,4 +1,4 @@
-package Presentation;
+package Presentation.views;
 
 import Business.JImagePanel;
 
@@ -9,9 +9,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class LoginView {
-
-    private JFrame frame;
+public class LoginView extends View {
     private JImagePanel jpiMain;
     private JPanel jpCentral, jpUsername, jpPassword, jpButtons, jpLogin;
     private JLabel jlTitle;
@@ -20,8 +18,6 @@ public class LoginView {
     private JPasswordField jtfPassword;
 
     //DIMENSION CONSTANTS
-    private final int WIDTH_MAIN_FRAME = 1150;
-    private final int HEIGHT_MAIN_FRAME = 800;
     private final Dimension DIMENSION_TEXTFIELD = new Dimension(300, 50);
     private final Dimension DIMENSION_BUTTON_LOGIN = new Dimension(150, 40);
     private final Dimension DIMENSION_BUTTON_SIGNIN = new Dimension(250, 50);
@@ -33,10 +29,7 @@ public class LoginView {
     //IMAGES
     private final String BACKGROUND_URL = "src/Presentation/Images/background.jpg";
 
-
     public LoginView() {
-        frame = new JFrame("Login");
-
         //Panels
         jpiMain = new JImagePanel(BACKGROUND_URL);
         jpCentral = new JPanel();
@@ -56,16 +49,18 @@ public class LoginView {
         //Text fields
         jtfUsername = new JTextField();
         jtfPassword = new JPasswordField();
-    }
-
-    public void showLoginView() {
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(WIDTH_MAIN_FRAME, HEIGHT_MAIN_FRAME);
 
         setMainPanel();
-        frame.add(jpiMain);
-        frame.setVisible(true);
+    }
 
+    @Override
+    public void showView() {
+        setVisible(true);
+    }
+
+    @Override
+    public void hideView() {
+        setVisible(false);
     }
 
     private void setMainPanel() {
@@ -78,6 +73,9 @@ public class LoginView {
         jpiMain.add(jlTitle, BorderLayout.NORTH);
         jpiMain.add(jpCentral, BorderLayout.CENTER);
         jpiMain.add(jpButtons, BorderLayout.SOUTH);
+
+        setLayout(new BorderLayout());
+        add(jpiMain, BorderLayout.CENTER);
     }
 
     private void setTitle() {
@@ -263,11 +261,10 @@ public class LoginView {
     }
 
     public void showError(String message) {
-        JOptionPane.showMessageDialog(frame, message, "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-
-
-
-
+    public JButton getSingUpButton() {
+        return jbSignUp;
+    }
 }

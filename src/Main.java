@@ -1,12 +1,22 @@
 import Persistence.sql.SQLConnector;
-import Presentation.LoginView;
+import Presentation.views.LoginView;
+import Presentation.views.MainFrame;
 
+import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
+        /*
+        SwingUtilities.invokeLater(. {
 
+        });
+        */
+        MainFrame mFrame = new MainFrame();
+        mFrame.showMainFrame();
+
+        /*
         SQLConnector db = SQLConnector.getInstance();
 
         if (db != null) {
@@ -33,5 +43,7 @@ public class Main {
         // VIEW TESTING
         LoginView loginView = new LoginView();
         loginView.showLoginView();
+        */
+
     }
 }
