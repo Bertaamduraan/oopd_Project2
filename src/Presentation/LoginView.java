@@ -1,25 +1,44 @@
 package Presentation;
 
+import Business.JImagePanel;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class LoginView {
 
     private JFrame frame;
-    private JPanel jpMain, jpCentral, jpUsername, jpPassword, jpButtons, jpLogin;
+    private JImagePanel jpiMain;
+    private JPanel jpCentral, jpUsername, jpPassword, jpButtons, jpLogin;
     private JLabel jlTitle;
     private JButton jbLogIn, jbSignUp, jbForgotPassword;
+    private JTextField jtfUsername;
+    private JPasswordField jtfPassword;
 
+    //DIMENSION CONSTANTS
     private final int WIDTH_MAIN_FRAME = 1150;
     private final int HEIGHT_MAIN_FRAME = 800;
+    private final Dimension DIMENSION_TEXTFIELD = new Dimension(300, 50);
+    private final Dimension DIMENSION_BUTTON_LOGIN = new Dimension(150, 40);
+    private final Dimension DIMENSION_BUTTON_SIGNIN = new Dimension(250, 50);
+
+    //COLOR CONSTANTS
     private final Color BACKGROUND_BUTTON = new Color(103, 51, 25);
     private final Color BACKGROUND_BUTTON_PRESSED = new Color(214, 196, 171);
+
+    //IMAGES
+    private final String BACKGROUND_URL = "src/Presentation/Images/background.jpg";
+
 
     public LoginView() {
         frame = new JFrame("Login");
 
         //Panels
-        jpMain = new JPanel();
+        jpiMain = new JImagePanel(BACKGROUND_URL);
         jpCentral = new JPanel();
         jpUsername = new JPanel();
         jpPassword = new JPanel();
@@ -34,45 +53,47 @@ public class LoginView {
         jbSignUp = new JButton("Don't have an account yet? \nSign up");
         jbForgotPassword = new JButton("Forgot Password?");
 
+        //Text fields
+        jtfUsername = new JTextField();
+        jtfPassword = new JPasswordField();
     }
 
     public void showLoginView() {
-        frame = new JFrame("Login View");
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(WIDTH_MAIN_FRAME, HEIGHT_MAIN_FRAME);
 
         setMainPanel();
-        frame.add(jpMain);
+        frame.add(jpiMain);
         frame.setVisible(true);
 
     }
 
-    public void setMainPanel() {
+    private void setMainPanel() {
         setTitle();
         setCenterPanel();
         setButtons();
 
-        jpMain.setLayout(new BorderLayout());
-        jpMain.add(jlTitle, BorderLayout.NORTH);
-        jpMain.add(jpCentral, BorderLayout.CENTER);
-        jpMain.add(jpButtons, BorderLayout.SOUTH);
+        jpiMain.setLayout(new BorderLayout());
+        jpiMain.setOpacityValue(0.5f);
+        jpiMain.add(jlTitle, BorderLayout.NORTH);
+        jpiMain.add(jpCentral, BorderLayout.CENTER);
+        jpiMain.add(jpButtons, BorderLayout.SOUTH);
     }
 
-    public void setTitle() {
+    private void setTitle() {
         jlTitle.setFont(new Font("Times New Roman", Font.BOLD, 50));
         jlTitle.setBorder(BorderFactory.createEmptyBorder(50, 50, 10, 50));
         jlTitle.setHorizontalAlignment(JLabel.CENTER);
     }
 
-    public void setCenterPanel() {
-
+    private void setCenterPanel() {
         setUsernamePanel();
         setPasswordPanel();
         setLogInPanel();
 
         jpCentral.setLayout(new BoxLayout(jpCentral, BoxLayout.Y_AXIS));
         jpCentral.setBorder(BorderFactory.createEmptyBorder(60, 0, 0, 0));
+        jpCentral.setOpaque(false);
 
         jpUsername.setAlignmentX(Component.CENTER_ALIGNMENT);
         jpPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -81,76 +102,171 @@ public class LoginView {
         jpCentral.add(jpPassword);
         jpCentral.add(jpLogin);
 
-
     }
 
-    public void setUsernamePanel() {
+    private void setUsernamePanel() {
         jpUsername.setLayout(new BoxLayout(jpUsername, BoxLayout.Y_AXIS));
         jpUsername.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0));
 
         JLabel topLabel = new JLabel("Username: ");
-        JTextField jtfInformation = new JTextField();
 
         topLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        jtfInformation.setAlignmentX(Component.LEFT_ALIGNMENT);
+        topLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        setUsernameTextField();
 
-        jtfInformation.setPreferredSize(new Dimension(300, 50));
-        jtfInformation.setMaximumSize(new Dimension(300, 50));
+        jpUsername.setOpaque(false);
 
         jpUsername.add(topLabel);
-        jpUsername.add(jtfInformation);
+        jpUsername.add(jtfUsername);
     }
 
-    public void setPasswordPanel() {
+    private void setPasswordPanel() {
         jpPassword.setLayout(new BoxLayout(jpPassword, BoxLayout.Y_AXIS));
         jpPassword.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0));
+        jpPassword.setOpaque(false);
 
         JLabel topLabel = new JLabel("Password: ");
-        JTextField jtfInformation = new JPasswordField();
 
         topLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        jtfInformation.setAlignmentX(Component.LEFT_ALIGNMENT);
+        topLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        setPasswordTextField();
 
-        jtfInformation.setPreferredSize(new Dimension(300, 50));
-        jtfInformation.setMaximumSize(new Dimension(300, 50));
+        jpPassword.setOpaque(false);
 
         jpPassword.add(topLabel);
-        jpPassword.add(jtfInformation);
+        jpPassword.add(jtfPassword);
     }
 
-    public void setLogInPanel() {
+    private void setUsernameTextField() {
+        jtfUsername.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        jtfUsername.setPreferredSize(DIMENSION_TEXTFIELD);
+        jtfUsername.setMaximumSize(DIMENSION_TEXTFIELD);
+        jtfUsername.setBackground(BACKGROUND_BUTTON);
+
+        //TODO: CHECK IF THIS GOES HERE
+        jtfUsername.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                jtfUsername.setBackground(BACKGROUND_BUTTON_PRESSED);
+                jtfUsername.setForeground(Color.BLACK);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                jtfUsername.setBackground(BACKGROUND_BUTTON);
+                jtfUsername.setForeground(Color.WHITE);
+            }
+        });
+
+        jtfUsername.setBorder(
+                BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(Color.BLACK, 2),
+                        BorderFactory.createEmptyBorder(0, 10, 0, 0)
+                )
+        );
+
+    }
+
+    private void setPasswordTextField() {
+        jtfPassword.setAlignmentX(Component.LEFT_ALIGNMENT);
+        jtfPassword.setPreferredSize(DIMENSION_TEXTFIELD);
+        jtfPassword.setMaximumSize(DIMENSION_TEXTFIELD);
+        jtfPassword.setBackground(BACKGROUND_BUTTON);
+
+        //TODO: CHECK IF THIS GOES HERE
+        jtfPassword.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                jtfPassword.setBackground(BACKGROUND_BUTTON_PRESSED);
+                jtfPassword.setForeground(Color.BLACK);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                jtfPassword.setBackground(BACKGROUND_BUTTON);
+                jtfPassword.setForeground(Color.WHITE);
+            }
+        });
+
+        jtfPassword.setBorder(
+                BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(Color.BLACK, 2),
+                        BorderFactory.createEmptyBorder(0, 10, 0, 0)
+                )
+        );
+
+    }
+
+    private void setLogInPanel() {
         jpLogin = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
-        jbLogIn.setPreferredSize(new Dimension(150, 40));
+        jbLogIn.setPreferredSize(DIMENSION_BUTTON_LOGIN);
         jbLogIn.setAlignmentX(Component.CENTER_ALIGNMENT);
         jbLogIn.setAlignmentY(Component.CENTER_ALIGNMENT);
 
-        jbLogIn.setBackground(BACKGROUND_BUTTON_PRESSED);
+        jbLogIn.setBackground(BACKGROUND_BUTTON);
+        jpLogin.setOpaque(false);
         jbLogIn.setOpaque(true);
         jbLogIn.setContentAreaFilled(true);
 
         jpLogin.add(jbLogIn);
+
+        //TODO: CHECK IF THIS GOES HERE
+        jbLogIn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                jbLogIn.setBackground(BACKGROUND_BUTTON_PRESSED);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                jbLogIn.setBackground(BACKGROUND_BUTTON);
+            }
+        });
+
     }
 
-    public void setButtons() {
+    private void setButtons() {
         jpButtons.setLayout(new BoxLayout(jpButtons, BoxLayout.Y_AXIS));
         jpButtons.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
+        jpButtons.setOpaque(false);
 
-        jbSignUp.setPreferredSize(new Dimension(250, 50));
-        jbSignUp.setMaximumSize(new Dimension(250, 50));
-        jbSignUp.setAlignmentX(Component.CENTER_ALIGNMENT);
-        jbSignUp.setAlignmentY(Component.CENTER_ALIGNMENT);
-
-        jbForgotPassword.setPreferredSize(new Dimension(250, 50));
-        jbForgotPassword.setMaximumSize(new Dimension(150, 50));
-        jbForgotPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
-        jbForgotPassword.setAlignmentY(Component.CENTER_ALIGNMENT);
-
+        setSignInButton();
+        setForgotPasswordButton();
 
         jpButtons.add(jbSignUp);
         jpButtons.add(Box.createVerticalStrut(10));
         jpButtons.add(jbForgotPassword);
     }
+
+    private void setSignInButton() {
+        jbSignUp.setPreferredSize(DIMENSION_BUTTON_SIGNIN);
+        jbSignUp.setMaximumSize(DIMENSION_BUTTON_SIGNIN);
+        jbSignUp.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jbSignUp.setAlignmentY(Component.CENTER_ALIGNMENT);
+
+        jbSignUp.setBackground(BACKGROUND_BUTTON);
+        jbSignUp.setOpaque(true);
+        jbSignUp.setContentAreaFilled(true);
+    }
+
+    private void setForgotPasswordButton() {
+        jbForgotPassword.setPreferredSize(DIMENSION_BUTTON_LOGIN);
+        jbForgotPassword.setMaximumSize(DIMENSION_BUTTON_LOGIN);
+        jbForgotPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jbForgotPassword.setAlignmentY(Component.CENTER_ALIGNMENT);
+
+        jbForgotPassword.setBackground(BACKGROUND_BUTTON);
+        jbForgotPassword.setOpaque(true);
+        jbForgotPassword.setContentAreaFilled(true);
+    }
+
+    public void showError(String message) {
+        JOptionPane.showMessageDialog(frame, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+
 
 
 
