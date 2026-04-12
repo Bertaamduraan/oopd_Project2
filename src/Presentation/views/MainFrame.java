@@ -8,6 +8,9 @@ public class MainFrame extends JFrame {
     private LoginView loginView;
     private RegisterView registerView;
 
+    private GameView gameView;
+    private MenuView menuView;
+
     private final int WIDTH_MAIN_FRAME = 1150;
     private final int HEIGHT_MAIN_FRAME = 800;
 
@@ -31,6 +34,9 @@ public class MainFrame extends JFrame {
 
         loginView =  new LoginView();
         registerView =  new RegisterView();
+
+        gameView = new GameView();
+        menuView = new MenuView();
 
 
         mainPanel.add(loginView, "loginView");
