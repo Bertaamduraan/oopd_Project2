@@ -11,14 +11,16 @@ import java.awt.event.MouseEvent;
 
 public class RegisterView extends View {
     private JImagePanel jpiMain;
-    private JPanel jpCentral, jpUsername, jpPassword, jpButtons, jpLogin;
-    private JLabel jlTitle;
-    private JTextField jtfUsername;
-    private JPasswordField jtfPassword;
+    private final JPanel jpCentral, jpUsername, jpPassword, jpButtons, jpEmail, jpPasswordConfirmation;
+    private JPanel jpLogin;
+    private final JLabel jlTitle;
+    private final JTextField jtfUsername, jtfEmail;
+    private final JPasswordField jtfPassword, jtfPasswordConfirmation;
+    private JButton jbLogIn, jbSignUp;
 
     //DIMENSION CONSTANTS
     private final Dimension DIMENSION_TEXTFIELD = new Dimension(300, 50);
-    private final Dimension DIMENSION_BUTTON_LOGIN = new Dimension(150, 40);
+    private final Dimension DIMENSION_BUTTON_LOGIN = new Dimension(250, 40);
     private final Dimension DIMENSION_BUTTON_SIGNIN = new Dimension(250, 50);
 
     //COLOR CONSTANTS
@@ -35,6 +37,9 @@ public class RegisterView extends View {
         jpUsername = new JPanel();
         jpPassword = new JPanel();
         jpButtons = new JPanel();
+        jpEmail = new JPanel();
+        jpPasswordConfirmation = new JPanel();
+
         jpLogin = new JPanel();
 
         //Labels
@@ -43,6 +48,13 @@ public class RegisterView extends View {
         //Text fields
         jtfUsername = new JTextField();
         jtfPassword = new JPasswordField();
+        jtfEmail = new JTextField();
+        jtfPasswordConfirmation = new JPasswordField();
+
+
+        //Buttons
+        jbLogIn = new JButton("Already have an account. Log in.");
+        jbSignUp = new JButton("SIGN UP");
 
         setMainPanel();
     }
@@ -66,9 +78,10 @@ public class RegisterView extends View {
         jpiMain.setOpacityValue(0.5f);
         jpiMain.add(jlTitle, BorderLayout.NORTH);
         jpiMain.add(jpCentral, BorderLayout.CENTER);
+        jpiMain.add(jpButtons, BorderLayout.SOUTH);
 
-        setLayout(new BorderLayout());
-        add(jpiMain, BorderLayout.CENTER);
+        this.setLayout(new BorderLayout());
+        this.add(jpiMain, BorderLayout.CENTER);
     }
 
     private void setTitle() {
@@ -80,7 +93,9 @@ public class RegisterView extends View {
     private void setCenterPanel() {
         setUsernamePanel();
         setPasswordPanel();
-        setLogInPanel();
+        setEmailPanel();
+        setPasswordConfirmationPanel();
+        setSignUpButton();
 
         jpCentral.setLayout(new BoxLayout(jpCentral, BoxLayout.Y_AXIS));
         jpCentral.setBorder(BorderFactory.createEmptyBorder(60, 0, 0, 0));
@@ -88,11 +103,14 @@ public class RegisterView extends View {
 
         jpUsername.setAlignmentX(Component.CENTER_ALIGNMENT);
         jpPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jpEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jpPasswordConfirmation.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         jpCentral.add(jpUsername);
+        jpCentral.add(jpEmail);
         jpCentral.add(jpPassword);
-        jpCentral.add(jpLogin);
-
+        jpCentral.add(jpPasswordConfirmation);
+        jpCentral.add(jbSignUp);
     }
 
     private void setUsernamePanel() {
@@ -126,6 +144,39 @@ public class RegisterView extends View {
 
         jpPassword.add(topLabel);
         jpPassword.add(jtfPassword);
+    }
+
+    private void setPasswordConfirmationPanel() {
+        jpPasswordConfirmation.setLayout(new BoxLayout(jpPasswordConfirmation, BoxLayout.Y_AXIS));
+        jpPasswordConfirmation.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0));
+        jpPasswordConfirmation.setOpaque(false);
+
+        JLabel topLabel = new JLabel("Password confirmation: ");
+
+        topLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        topLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        setPasswordConfirmationTextField();
+
+        jpPasswordConfirmation.setOpaque(false);
+
+        jpPasswordConfirmation.add(topLabel);
+        jpPasswordConfirmation.add(jtfPasswordConfirmation);
+    }
+
+    private void setEmailPanel() {
+        jpEmail.setLayout(new BoxLayout(jpEmail, BoxLayout.Y_AXIS));
+        jpEmail.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0));
+
+        JLabel topLabel = new JLabel("Email: ");
+
+        topLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        topLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        setEmailTextField();
+
+        jpEmail.setOpaque(false);
+
+        jpEmail.add(topLabel);
+        jpEmail.add(jtfEmail);
     }
 
     private void setUsernameTextField() {
@@ -189,11 +240,89 @@ public class RegisterView extends View {
 
     }
 
-    private void setLogInPanel() {
-        jpLogin = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    private void setPasswordConfirmationTextField() {
+        jtfPasswordConfirmation.setAlignmentX(Component.LEFT_ALIGNMENT);
+        jtfPasswordConfirmation.setPreferredSize(DIMENSION_TEXTFIELD);
+        jtfPasswordConfirmation.setMaximumSize(DIMENSION_TEXTFIELD);
+        jtfPasswordConfirmation.setBackground(BACKGROUND_BUTTON);
 
-        jpLogin.setOpaque(false);
+        //TODO: CHECK IF THIS GOES HERE
+        jtfPasswordConfirmation.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                jtfPasswordConfirmation.setBackground(BACKGROUND_BUTTON_PRESSED);
+                jtfPasswordConfirmation.setForeground(Color.BLACK);
+            }
 
+            @Override
+            public void focusLost(FocusEvent e) {
+                jtfPasswordConfirmation.setBackground(BACKGROUND_BUTTON);
+                jtfPasswordConfirmation.setForeground(Color.WHITE);
+            }
+        });
+
+        jtfPasswordConfirmation.setBorder(
+                BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(Color.BLACK, 2),
+                        BorderFactory.createEmptyBorder(0, 10, 0, 0)
+                )
+        );
+    }
+
+    private void setEmailTextField() {
+        jtfEmail.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        jtfEmail.setPreferredSize(DIMENSION_TEXTFIELD);
+        jtfEmail.setMaximumSize(DIMENSION_TEXTFIELD);
+        jtfEmail.setBackground(BACKGROUND_BUTTON);
+
+        //TODO: CHECK IF THIS GOES HERE
+        jtfEmail.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                jtfEmail.setBackground(BACKGROUND_BUTTON_PRESSED);
+                jtfEmail.setForeground(Color.BLACK);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                jtfEmail.setBackground(BACKGROUND_BUTTON);
+                jtfEmail.setForeground(Color.WHITE);
+            }
+        });
+
+        jtfEmail.setBorder(
+                BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(Color.BLACK, 2),
+                        BorderFactory.createEmptyBorder(0, 10, 0, 0)
+                )
+        );
+    }
+
+    private void setSignUpButton() {
+        jbSignUp.setPreferredSize(DIMENSION_BUTTON_LOGIN);
+        jbSignUp.setMaximumSize(DIMENSION_BUTTON_LOGIN);
+
+        jbSignUp.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jbSignUp.setAlignmentY(Component.CENTER_ALIGNMENT);
+
+        jbSignUp.setBackground(BACKGROUND_BUTTON);
+        jbSignUp.setOpaque(false);
+        jbSignUp.setOpaque(true);
+        jbSignUp.setContentAreaFilled(true);
+
+        //TODO: CHECK IF THIS GOES HERE
+        jbSignUp.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                jbSignUp.setBackground(BACKGROUND_BUTTON_PRESSED);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                jbSignUp.setBackground(BACKGROUND_BUTTON);
+            }
+        });
     }
 
     private void setButtons() {
@@ -201,7 +330,26 @@ public class RegisterView extends View {
         jpButtons.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
         jpButtons.setOpaque(false);
 
-        jpButtons.add(Box.createVerticalStrut(10));
+        setSignUpButton();
+        setLogInButton();
+
+        //jpButtons.add(jbSignUp);
+        jpButtons.add(Box.createVerticalStrut(25));
+        jpButtons.add(jbLogIn);
     }
 
+    private void setLogInButton() {
+        jbLogIn.setPreferredSize(DIMENSION_BUTTON_SIGNIN);
+        jbLogIn.setMaximumSize(DIMENSION_BUTTON_SIGNIN);
+        jbLogIn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jbLogIn.setAlignmentY(Component.CENTER_ALIGNMENT);
+
+        jbLogIn.setBackground(BACKGROUND_BUTTON);
+        jbLogIn.setOpaque(true);
+        jbLogIn.setContentAreaFilled(true);
+    }
+
+    public JButton getLogInButton() {
+        return jbLogIn;
+    }
 }

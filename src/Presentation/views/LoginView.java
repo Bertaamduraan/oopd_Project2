@@ -74,8 +74,8 @@ public class LoginView extends View {
         jpiMain.add(jpCentral, BorderLayout.CENTER);
         jpiMain.add(jpButtons, BorderLayout.SOUTH);
 
-        setLayout(new BorderLayout());
-        add(jpiMain, BorderLayout.CENTER);
+        this.setLayout(new BorderLayout());
+        this.add(jpiMain, BorderLayout.CENTER);
     }
 
     private void setTitle() {
@@ -87,7 +87,7 @@ public class LoginView extends View {
     private void setCenterPanel() {
         setUsernamePanel();
         setPasswordPanel();
-        setLogInPanel();
+        setLogInButtonPanel();
 
         jpCentral.setLayout(new BoxLayout(jpCentral, BoxLayout.Y_AXIS));
         jpCentral.setBorder(BorderFactory.createEmptyBorder(60, 0, 0, 0));
@@ -196,7 +196,7 @@ public class LoginView extends View {
 
     }
 
-    private void setLogInPanel() {
+    private void setLogInButtonPanel() {
         jpLogin = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         jbLogIn.setPreferredSize(DIMENSION_BUTTON_LOGIN);
