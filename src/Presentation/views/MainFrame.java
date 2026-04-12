@@ -49,7 +49,7 @@ public class MainFrame extends JFrame {
             cardLayout.show(mainPanel, "registerView");
         });
 
-        cardLayout.show(mainPanel, "menuView");
+        cardLayout.show(mainPanel, "gameView");
         add(mainPanel);
     }
 }
