@@ -42,11 +42,14 @@ public class MainFrame extends JFrame {
         mainPanel.add(loginView, "loginView");
         mainPanel.add(registerView, "registerView");
 
+        mainPanel.add(gameView, "gameView");
+        mainPanel.add(menuView, "menuView");
+
         loginView.getSingUpButton().addActionListener(e -> {
             cardLayout.show(mainPanel, "registerView");
         });
 
-        cardLayout.show(mainPanel, "loginView");
+        cardLayout.show(mainPanel, "menuView");
         add(mainPanel);
     }
 }
