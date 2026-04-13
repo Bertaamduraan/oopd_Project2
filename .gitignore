@@ -1,12 +1,17 @@
 # Default ignored files
 /shelf/
-.idea/vcs.xml
-.idea/workspace.xml
-.DS_Store
-# Editor-based HTTP Client requests
+/workspace.xml
 /httpRequests/
-# Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
-#Custom
-out/
+
+# Compiled Java
+*.class
+
+# IntelliJ project files
+*.iml
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
