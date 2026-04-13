@@ -7,11 +7,16 @@ public class MainFrame extends JFrame {
     CardLayout cardLayout = new CardLayout();
     private LoginView loginView;
     private RegisterView registerView;
-    private StatsView statsView;
+
+    private GameView gameView;
+    private MenuView menuView;
 
     private final int WIDTH_MAIN_FRAME = 1150;
     private final int HEIGHT_MAIN_FRAME = 800;
 
+    public MainFrame() {
+
+    }
 
     private void configureFrame() {
         setSize(WIDTH_MAIN_FRAME, HEIGHT_MAIN_FRAME);
@@ -29,20 +34,19 @@ public class MainFrame extends JFrame {
 
         loginView =  new LoginView();
         registerView =  new RegisterView();
-        statsView = new StatsView();
+        gameView = new GameView();
+        menuView = new MenuView();
 
 
         mainPanel.add(loginView, "loginView");
         mainPanel.add(registerView, "registerView");
 
+        mainPanel.add(gameView, "gameView");
+        mainPanel.add(menuView, "menuView");
+
         loginView.getSingUpButton().addActionListener(e -> {
             cardLayout.show(mainPanel, "registerView");
         });
-
-        registerView.getLogInButton().addActionListener(e -> {
-            cardLayout.show(mainPanel, "loginView");
-        });
-
 
         cardLayout.show(mainPanel, "loginView");
         add(mainPanel);

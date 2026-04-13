@@ -1,0 +1,27 @@
+Index: src/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import Persistence.sql.SQLConnector;\nimport Presentation.LoginView;\n\nimport java.sql.ResultSet;\nimport java.sql.SQLException;\n\npublic class Main {\n    public static void main(String[] args) {\n\n        SQLConnector db = SQLConnector.getInstance();\n\n        if (db != null) {\n            System.out.println(\"Connection successful!\");\n\n            ResultSet rs = db.selectQuery(\"SELECT * FROM user\");\n\n            try {\n                while (rs.next()) {\n                    // Replace with your actual column names\n                    System.out.println(rs.getString(\"user_id\") + \" \" + rs.getString(\"password\"));\n                }\n            } catch (SQLException e) {\n                System.err.println(\"Error reading results --> \" + e.getMessage());\n            }\n\n            db.disconnect();\n\n        } else {\n            System.err.println(\"Connection failed!\");\n        }\n\n\n        // VIEW TESTING\n        LoginView loginView = new LoginView();\n        loginView.showLoginView();\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Main.java b/src/Main.java
+--- a/src/Main.java	(revision b4a72e92f20f8fc384ac6741450ff1ad9ed13408)
++++ b/src/Main.java	(date 1775827062830)
+@@ -7,6 +7,7 @@
+ public class Main {
+     public static void main(String[] args) {
+ 
++        //TODO: swing.invokeLater
+         SQLConnector db = SQLConnector.getInstance();
+ 
+         if (db != null) {
+@@ -33,5 +34,7 @@
+         // VIEW TESTING
+         LoginView loginView = new LoginView();
+         loginView.showLoginView();
++
++
+     }
+ }
+\ No newline at end of file

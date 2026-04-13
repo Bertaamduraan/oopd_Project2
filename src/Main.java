@@ -1,13 +1,50 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-  //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-  // to see how IntelliJ IDEA suggests fixing it.
-  IO.println(String.format("Hello and welcome!"));
+//import Persistence.sql.SQLConnector;
 
-  for (int i = 1; i <= 5; i++) {
-    //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-    // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-    IO.println("i = " + i);
-  }
+import Presentation.views.LoginView;
+import Presentation.views.MainFrame;
+
+import javax.swing.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class Main {
+    public static void main(String[] args) {
+        /*
+        SwingUtilities.invokeLater(. {
+
+        });
+        */
+        MainFrame mFrame = new MainFrame();
+        mFrame.showMainFrame();
+
+        /*
+        SQLConnector db = SQLConnector.getInstance();
+
+        if (db != null) {
+            System.out.println("Connection successful!");
+
+            ResultSet rs = db.selectQuery("SELECT * FROM user");
+
+            try {
+                while (rs.next()) {
+                    // Replace with your actual column names
+                    System.out.println(rs.getString("user_id") + " " + rs.getString("password"));
+                }
+            } catch (SQLException e) {
+                System.err.println("Error reading results --> " + e.getMessage());
+            }
+
+            db.disconnect();
+
+        } else {
+            System.err.println("Connection failed!");
+        }
+
+
+        // VIEW TESTING
+        LoginView loginView = new LoginView();
+        loginView.showLoginView();
+        */
+
+    }
 }

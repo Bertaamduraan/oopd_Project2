@@ -1,0 +1,37 @@
+Index: src/Persistence/UserDao.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Persistence;\n\npublic interface UserDao {\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Persistence/UserDao.java b/src/Persistence/UserDao.java
+--- a/src/Persistence/UserDao.java	(revision 5a6edeb43629f99835fc0933397137fa99c439f6)
++++ b/src/Persistence/UserDao.java	(date 1775561046165)
+@@ -1,4 +1,10 @@
+ package Persistence;
+ 
++import Business.User;
++
++import java.sql.SQLException;
++
+ public interface UserDao {
++    public void insertUser(User user) throws SQLException;
++    public void updateUser(User user) throws SQLException;
+ }
+Index: src/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>public class Main {\n    public static void main(String[] args) {\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Main.java b/src/Main.java
+--- a/src/Main.java	(revision 5a6edeb43629f99835fc0933397137fa99c439f6)
++++ b/src/Main.java	(date 1775569546366)
+@@ -1,4 +1,5 @@
+ public class Main {
+     public static void main(String[] args) {
++
+     }
+ }
