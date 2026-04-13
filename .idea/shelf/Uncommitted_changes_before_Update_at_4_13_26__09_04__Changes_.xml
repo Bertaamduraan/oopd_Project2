@@ -1,0 +1,14 @@
+<changelist name="Uncommitted_changes_before_Update_at_4_13_26,_09_04_[Changes]" date="1776063844066" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_13_26,_09_04_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 4/13/26, 09:04 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/oopd_Project2/Persistence/UserDao.class" />
+    <option name="AFTER_PATH" value="out/production/oopd_Project2/Persistence/UserDao.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_13_26,_09_04_[Changes]/UserDao.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/oopd_Project2/Business/User.class" />
+    <option name="AFTER_PATH" value="out/production/oopd_Project2/Business/User.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_13_26,_09_04_[Changes]/User.class" />
+  </binary>
+</changelist>
