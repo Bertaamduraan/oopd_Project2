@@ -34,7 +34,6 @@ public class MainFrame extends JFrame {
 
         loginView =  new LoginView();
         registerView =  new RegisterView();
-
         gameView = new GameView();
         menuView = new MenuView();
 
@@ -49,7 +48,7 @@ public class MainFrame extends JFrame {
             cardLayout.show(mainPanel, "registerView");
         });
 
-        cardLayout.show(mainPanel, "gameView");
+        cardLayout.show(mainPanel, "loginView");
         add(mainPanel);
     }
 }
