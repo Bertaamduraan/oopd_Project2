@@ -47,6 +47,9 @@ public class MainFrame extends JFrame {
         loginView.getSingUpButton().addActionListener(e -> {
             cardLayout.show(mainPanel, "registerView");
         });
+        registerView.getLogInButton().addActionListener(e -> {
+            cardLayout.show(mainPanel, "loginView");
+        });
 
         cardLayout.show(mainPanel, "loginView");
         add(mainPanel);
