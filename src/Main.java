@@ -1,5 +1,5 @@
-//import Persistence.sql.SQLConnector;
-
+import Persistence.sql.SQLConnector;
+import Presentation.controllers.AppController;
 import Presentation.views.LoginView;
 import Presentation.views.MainFrame;
 
@@ -9,13 +9,11 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
-        /*
-        SwingUtilities.invokeLater(. {
-
+        SwingUtilities.invokeLater(() -> {
+            new AppController();
         });
-        */
-        MainFrame mFrame = new MainFrame();
-        mFrame.showMainFrame();
+
+
 
         /*
         SQLConnector db = SQLConnector.getInstance();

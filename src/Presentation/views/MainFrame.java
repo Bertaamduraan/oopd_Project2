@@ -1,27 +1,53 @@
 package Presentation.views;
 
+import Presentation.controllers.AppController;
+import Presentation.controllers.UserController;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
-    CardLayout cardLayout = new CardLayout();
+    private CardLayout cardLayout;
+    private JPanel mainPanel;
+
+    // ALL VIEWS
     private LoginView loginView;
     private RegisterView registerView;
-
-    private GameView gameView;
     private MenuView menuView;
+    private StatsView statsView;
 
     private final int WIDTH_MAIN_FRAME = 1150;
     private final int HEIGHT_MAIN_FRAME = 800;
 
-    public MainFrame() {
+    public MainFrame(AppController appController) {
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
 
+        // Create views
+        loginView = new LoginView();
+        registerView = new RegisterView();
+        menuView = new MenuView();
+        // ...
+
+        // Create controllers and passing as the navigator
+        new UserController(appController, loginView);
+
+        // Add cards
+        mainPanel.add(loginView, "login");
+        mainPanel.add(registerView, "register");
+        mainPanel.add(menuView, "menu");
+
+        add(mainPanel);
+        switchCard("login"); //start on login
+    }
+
+    public void switchCard(String cardName) {
+        cardLayout.show(mainPanel, cardName);
     }
 
     private void configureFrame() {
         setSize(WIDTH_MAIN_FRAME, HEIGHT_MAIN_FRAME);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setContent();
     }
 
     public void showMainFrame() {
@@ -29,26 +55,4 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
-    private void setContent() {
-        JPanel mainPanel = new JPanel(cardLayout);
-
-        loginView =  new LoginView();
-        registerView =  new RegisterView();
-        gameView = new GameView();
-        menuView = new MenuView();
-
-
-        mainPanel.add(loginView, "loginView");
-        mainPanel.add(registerView, "registerView");
-
-        mainPanel.add(gameView, "gameView");
-        mainPanel.add(menuView, "menuView");
-
-        loginView.getSingUpButton().addActionListener(e -> {
-            cardLayout.show(mainPanel, "registerView");
-        });
-
-        cardLayout.show(mainPanel, "loginView");
-        add(mainPanel);
-    }
 }

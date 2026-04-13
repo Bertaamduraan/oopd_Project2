@@ -17,7 +17,9 @@ public interface UserDao {
      *
      * @param user The new student to save.
      */
-    public void insertUser(User user) throws SQLException;
+    public void insertUser(User user);
+
+    public User findByUsernameAndPassword(String username, String password);
 
     /**
      * Method that allows to update the user with the information changed.
@@ -32,5 +34,7 @@ public interface UserDao {
      *
      * @return A list containing all persisted users.
      */
-    List<User> getAllStudents();
+    List<User> getAllUsers();
+
+    public void deleteUser(int id) throws SQLException;
 }

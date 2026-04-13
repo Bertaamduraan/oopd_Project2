@@ -16,13 +16,29 @@ import java.util.List;
 public class SQLUserDAO implements UserDao {
     @Override
     public void insertUser(User user) {
-        String query = "INSERT INTO Student(username, email, password) VALUES ('" +
+        String query = "INSERT INTO User(username, email, password) VALUES ('" +
                 user.getUsername() + "', '" +
                 user.getEmail() + "', '" +
-                user.getPassword() + "', '" +
-                "');";
+                user.getPassword() + "');";
 
         SQLConnector.getInstance().insertQuery(query);
+    }
+
+    public User findByUsernameAndPassword(String username, String password) {
+        String query = "SELECT * FROM user WHERE username = '" + username + "' AND password = '" + password + "';";
+
+        ResultSet result = SQLConnector.getInstance().selectQuery(query);
+
+        try {
+            if (result.next()) {
+                int id = result.getInt("user_id");
+                String email = result.getString("email");
+                return new User(id, username, email, password);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -31,7 +47,7 @@ public class SQLUserDAO implements UserDao {
     }
 
     @Override
-    public List<User> getAllStudents() {
+    public List<User> getAllUsers() {
         List<User> users = new LinkedList<>();
         /*
         List<User> students = new LinkedList<>();
@@ -52,5 +68,9 @@ public class SQLUserDAO implements UserDao {
         }
         */
         return users;
+    }
+
+    @Override
+    public void deleteUser(int id) {
     }
 }
