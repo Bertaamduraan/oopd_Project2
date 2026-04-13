@@ -1,4 +1,4 @@
-import Persistence.sql.SQLConnector;
+//import Persistence.sql.SQLConnector;
 import Presentation.views.LoginView;
 import Presentation.views.MainFrame;
 
