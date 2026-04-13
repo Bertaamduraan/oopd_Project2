@@ -4,10 +4,7 @@ import Business.JImagePanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class LoginView extends View {
     private JImagePanel jpiMain;
@@ -203,6 +200,7 @@ public class LoginView extends View {
         jbLogIn.setAlignmentX(Component.CENTER_ALIGNMENT);
         jbLogIn.setAlignmentY(Component.CENTER_ALIGNMENT);
 
+        jbLogIn.setForeground(Color.WHITE);
         jbLogIn.setBackground(BACKGROUND_BUTTON);
         jpLogin.setOpaque(false);
         jbLogIn.setOpaque(true);
@@ -262,6 +260,18 @@ public class LoginView extends View {
 
     public void showError(String message) {
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void addLoginListener(ActionListener listener) {
+        jbLogIn.addActionListener(listener);
+    }
+
+    public String getUsername() {
+        return jtfUsername.getText();
+    }
+
+    public String getPassword() {
+        return new String(jtfPassword.getPassword());
     }
 
     public JButton getSingUpButton() {
