@@ -33,17 +33,19 @@ public class StatsView extends View {
         jcbGames = new JComboBox<>(gamesOptions);
         jlPlayers = new JLabel("Select a player");
         jlGames = new JLabel("Select a game");
+
+        setMainPanel();
     }
 
-    public void showStatsView() {
+    private void setMainPanel() {
         setTopPanel();
-
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(topPanel, BorderLayout.NORTH);
-
+        add(mainPanel);
+        setVisible(true);
     }
 
-    public void setTopPanel() {
+    private void setTopPanel() {
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
 
         setPlayersPanel();
@@ -53,7 +55,7 @@ public class StatsView extends View {
         topPanel.add(gamesPanel);
     }
 
-    public void setPlayersPanel() {
+    private void setPlayersPanel() {
         playersPanel.setLayout(new BoxLayout(playersPanel, BoxLayout.Y_AXIS));
 
         jlPlayers.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -62,7 +64,7 @@ public class StatsView extends View {
         playersPanel.add(jcbPlayers);
     }
 
-    public void setGamesPanel() {
+    private void setGamesPanel() {
         gamesPanel.setLayout(new BoxLayout(gamesPanel, BoxLayout.Y_AXIS));
         jlGames.setAlignmentX(Component.LEFT_ALIGNMENT);
         jcbGames.setAlignmentX(Component.LEFT_ALIGNMENT);

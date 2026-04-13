@@ -2,6 +2,7 @@ import Persistence.sql.SQLConnector;
 import Presentation.controllers.AppController;
 import Presentation.views.LoginView;
 import Presentation.views.MainFrame;
+import Presentation.views.StatsView;
 
 import javax.swing.*;
 import java.sql.ResultSet;
@@ -38,11 +39,12 @@ public class Main {
             System.err.println("Connection failed!");
         }
 
-
+*/
         // VIEW TESTING
-        LoginView loginView = new LoginView();
-        loginView.showLoginView();
-        */
+        //String[] options = {"1", "2", "3"};
+       //StatsView statsView = new StatsView(options, options);
+       //statsView.showStatsView();
+
 
     }
 }

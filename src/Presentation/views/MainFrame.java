@@ -18,6 +18,7 @@ public class MainFrame extends JFrame {
 
     private final int WIDTH_MAIN_FRAME = 1150;
     private final int HEIGHT_MAIN_FRAME = 800;
+    private String[] options = {"1", "2", "3"};
 
     public MainFrame(AppController appController) {
         cardLayout = new CardLayout();
@@ -27,6 +28,7 @@ public class MainFrame extends JFrame {
         loginView = new LoginView();
         registerView = new RegisterView();
         menuView = new MenuView();
+        statsView = new StatsView(options, options);
         // ...
 
         // Create controllers and passing as the navigator
@@ -36,6 +38,7 @@ public class MainFrame extends JFrame {
         mainPanel.add(loginView, "login");
         mainPanel.add(registerView, "register");
         mainPanel.add(menuView, "menu");
+        mainPanel.add(statsView, "stats");
 
         loginView.getSingUpButton().addActionListener(e -> {
             cardLayout.show(mainPanel, "register");
@@ -46,10 +49,8 @@ public class MainFrame extends JFrame {
         });
 
 
-
-
         add(mainPanel);
-        switchCard("login"); //start on login
+        switchCard("stats"); //start on login
     }
 
     public void switchCard(String cardName) {
