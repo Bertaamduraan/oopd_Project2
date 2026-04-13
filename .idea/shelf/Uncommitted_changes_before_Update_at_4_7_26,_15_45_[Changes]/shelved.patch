@@ -1,0 +1,66 @@
+Index: src/Persistence/DBConnector.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Persistence;\n\nimport java.sql.Connection;\nimport java.sql.DriverManager;\nimport java.sql.SQLException;\n\npublic class DBConnector {\n\n    private static Connection con;\n\n    public static Connection getConection() {\n\n        try {\n            con = DriverManager.getConnection(\n                    \"jdbc:mysql://localhost:3306/test\",\n                    \"root\", \"\"\n            );\n        } catch (SQLException e) {\n            System.out.println(\"Error when connecting: \" + e.getMessage());\n        }\n       return con;\n    }\n}\n
+===================================================================
+diff --git a/src/Persistence/DBConnector.java b/src/Persistence/DBConnector.java
+--- a/src/Persistence/DBConnector.java	(revision 5a6edeb43629f99835fc0933397137fa99c439f6)
++++ b/src/Persistence/DBConnector.java	(date 1775562019053)
+@@ -3,21 +3,53 @@
+ import java.sql.Connection;
+ import java.sql.DriverManager;
+ import java.sql.SQLException;
++import java.sql.Statement;
+ 
+ public class DBConnector {
+ 
+-    private static Connection con;
++    private static Connection conn;
+ 
+     public static Connection getConection() {
+ 
+         try {
+-            con = DriverManager.getConnection(
+-                    "jdbc:mysql://localhost:3306/test",
++            conn = DriverManager.getConnection(
++                    "jdbc:mysql://localhost:3306/cooffee_clicker",
+                     "root", ""
+             );
+         } catch (SQLException e) {
+             System.out.println("Error when connecting: " + e.getMessage());
+         }
+-       return con;
++       return conn;
+     }
++
++
++
++    /**
++     * Method that executes an insertion query to the connected database.
++     *
++     * @param query String representation of the query to execute.
++     */
++    public void insertQuery(String query){
++        try {
++            Statement s = conn.createStatement();
++            s.executeUpdate(query);
++        } catch (SQLException e) {
++            System.err.println(query);
++            System.err.println("Problem when inserting --> " + e.getSQLState() + " (" + e.getMessage() + ")");
++        }
++    }
++
++
++    /**
++     * Method that closes the inner connection to the database. Ideally, users would disconnect after
++     * using the shared instance.
++     */
++    public void disconnect(){
++        try {
++            conn.close();
++        } catch (SQLException e) {
++            System.err.println("Problem when closing the connection --> " + e.getSQLState() + " (" + e.getMessage() + ")");
++        }
++    }
++
+ }

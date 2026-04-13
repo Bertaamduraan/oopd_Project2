@@ -1,0 +1,69 @@
+Index: src/Presentation/LoginView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Presentation;\n\nimport Business.JImagePanel;\n\nimport javax.swing.*;\nimport java.awt.*;\nimport java.awt.event.FocusAdapter;\nimport java.awt.event.FocusEvent;\nimport java.awt.event.MouseAdapter;\nimport java.awt.event.MouseEvent;\n\npublic class LoginView {\n\n    private JFrame frame;\n    private JImagePanel jpiMain;\n    private JPanel jpCentral, jpUsername, jpPassword, jpButtons, jpLogin;\n    private JLabel jlTitle;\n    private JButton jbLogIn, jbSignUp, jbForgotPassword;\n    private JTextField jtfUsername;\n    private JPasswordField jtfPassword;\n\n    //DIMENSION CONSTANTS\n    private final int WIDTH_MAIN_FRAME = 1150;\n    private final int HEIGHT_MAIN_FRAME = 800;\n    private final Dimension DIMENSION_TEXTFIELD = new Dimension(300, 50);\n    private final Dimension DIMENSION_BUTTON_LOGIN = new Dimension(150, 40);\n    private final Dimension DIMENSION_BUTTON_SIGNIN = new Dimension(250, 50);\n\n    //COLOR CONSTANTS\n    private final Color BACKGROUND_BUTTON = new Color(103, 51, 25);\n    private final Color BACKGROUND_BUTTON_PRESSED = new Color(214, 196, 171);\n\n    //IMAGES\n    private final String BACKGROUND_URL = \"src/Presentation/Images/background.jpg\";\n\n\n    public LoginView() {\n        frame = new JFrame(\"Login\");\n\n        //Panels\n        jpiMain = new JImagePanel(BACKGROUND_URL);\n        jpCentral = new JPanel();\n        jpUsername = new JPanel();\n        jpPassword = new JPanel();\n        jpButtons = new JPanel();\n        jpLogin = new JPanel();\n\n        //Labels\n        jlTitle = new JLabel(\"LOG IN\");\n\n        //Buttons\n        jbLogIn = new JButton(\"Log In\");\n        jbSignUp = new JButton(\"Don't have an account yet? \\nSign up\");\n        jbForgotPassword = new JButton(\"Forgot Password?\");\n\n        //Text fields\n        jtfUsername = new JTextField();\n        jtfPassword = new JPasswordField();\n    }\n\n    public void showLoginView() {\n        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\n        frame.setSize(WIDTH_MAIN_FRAME, HEIGHT_MAIN_FRAME);\n\n        setMainPanel();\n        frame.add(jpiMain);\n        frame.setVisible(true);\n\n    }\n\n    private void setMainPanel() {\n        setTitle();\n        setCenterPanel();\n        setButtons();\n\n        jpiMain.setLayout(new BorderLayout());\n        jpiMain.setOpacityValue(0.5f);\n        jpiMain.add(jlTitle, BorderLayout.NORTH);\n        jpiMain.add(jpCentral, BorderLayout.CENTER);\n        jpiMain.add(jpButtons, BorderLayout.SOUTH);\n    }\n\n    private void setTitle() {\n        jlTitle.setFont(new Font(\"Times New Roman\", Font.BOLD, 50));\n        jlTitle.setBorder(BorderFactory.createEmptyBorder(50, 50, 10, 50));\n        jlTitle.setHorizontalAlignment(JLabel.CENTER);\n    }\n\n    private void setCenterPanel() {\n        setUsernamePanel();\n        setPasswordPanel();\n        setLogInPanel();\n\n        jpCentral.setLayout(new BoxLayout(jpCentral, BoxLayout.Y_AXIS));\n        jpCentral.setBorder(BorderFactory.createEmptyBorder(60, 0, 0, 0));\n        jpCentral.setOpaque(false);\n\n        jpUsername.setAlignmentX(Component.CENTER_ALIGNMENT);\n        jpPassword.setAlignmentX(Component.CENTER_ALIGNMENT);\n\n        jpCentral.add(jpUsername);\n        jpCentral.add(jpPassword);\n        jpCentral.add(jpLogin);\n\n    }\n\n    private void setUsernamePanel() {\n        jpUsername.setLayout(new BoxLayout(jpUsername, BoxLayout.Y_AXIS));\n        jpUsername.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0));\n\n        JLabel topLabel = new JLabel(\"Username: \");\n\n        topLabel.setAlignmentX(Component.LEFT_ALIGNMENT);\n        topLabel.setFont(new Font(\"Times New Roman\", Font.BOLD, 20));\n        setUsernameTextField();\n\n        jpUsername.setOpaque(false);\n\n        jpUsername.add(topLabel);\n        jpUsername.add(jtfUsername);\n    }\n\n    private void setPasswordPanel() {\n        jpPassword.setLayout(new BoxLayout(jpPassword, BoxLayout.Y_AXIS));\n        jpPassword.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0));\n        jpPassword.setOpaque(false);\n\n        JLabel topLabel = new JLabel(\"Password: \");\n\n        topLabel.setAlignmentX(Component.LEFT_ALIGNMENT);\n        topLabel.setFont(new Font(\"Times New Roman\", Font.BOLD, 20));\n        setPasswordTextField();\n\n        jpPassword.setOpaque(false);\n\n        jpPassword.add(topLabel);\n        jpPassword.add(jtfPassword);\n    }\n\n    private void setUsernameTextField() {\n        jtfUsername.setAlignmentX(Component.LEFT_ALIGNMENT);\n\n        jtfUsername.setPreferredSize(DIMENSION_TEXTFIELD);\n        jtfUsername.setMaximumSize(DIMENSION_TEXTFIELD);\n        jtfUsername.setBackground(BACKGROUND_BUTTON);\n\n        //TODO: CHECK IF THIS GOES HERE\n        jtfUsername.addFocusListener(new FocusAdapter() {\n            @Override\n            public void focusGained(FocusEvent e) {\n                jtfUsername.setBackground(BACKGROUND_BUTTON_PRESSED);\n                jtfUsername.setForeground(Color.BLACK);\n            }\n\n            @Override\n            public void focusLost(FocusEvent e) {\n                jtfUsername.setBackground(BACKGROUND_BUTTON);\n                jtfUsername.setForeground(Color.WHITE);\n            }\n        });\n\n        jtfUsername.setBorder(\n                BorderFactory.createCompoundBorder(\n                        BorderFactory.createLineBorder(Color.BLACK, 2),\n                        BorderFactory.createEmptyBorder(0, 10, 0, 0)\n                )\n        );\n\n    }\n\n    private void setPasswordTextField() {\n        jtfPassword.setAlignmentX(Component.LEFT_ALIGNMENT);\n        jtfPassword.setPreferredSize(DIMENSION_TEXTFIELD);\n        jtfPassword.setMaximumSize(DIMENSION_TEXTFIELD);\n        jtfPassword.setBackground(BACKGROUND_BUTTON);\n\n        //TODO: CHECK IF THIS GOES HERE\n        jtfPassword.addFocusListener(new FocusAdapter() {\n            @Override\n            public void focusGained(FocusEvent e) {\n                jtfPassword.setBackground(BACKGROUND_BUTTON_PRESSED);\n                jtfPassword.setForeground(Color.BLACK);\n            }\n\n            @Override\n            public void focusLost(FocusEvent e) {\n                jtfPassword.setBackground(BACKGROUND_BUTTON);\n                jtfPassword.setForeground(Color.WHITE);\n            }\n        });\n\n        jtfPassword.setBorder(\n                BorderFactory.createCompoundBorder(\n                        BorderFactory.createLineBorder(Color.BLACK, 2),\n                        BorderFactory.createEmptyBorder(0, 10, 0, 0)\n                )\n        );\n\n    }\n\n    private void setLogInPanel() {\n        jpLogin = new JPanel(new FlowLayout(FlowLayout.CENTER));\n\n        jbLogIn.setPreferredSize(DIMENSION_BUTTON_LOGIN);\n        jbLogIn.setAlignmentX(Component.CENTER_ALIGNMENT);\n        jbLogIn.setAlignmentY(Component.CENTER_ALIGNMENT);\n\n        jbLogIn.setBackground(BACKGROUND_BUTTON);\n        jpLogin.setOpaque(false);\n        jbLogIn.setOpaque(true);\n        jbLogIn.setContentAreaFilled(true);\n\n        jpLogin.add(jbLogIn);\n\n        //TODO: CHECK IF THIS GOES HERE\n        jbLogIn.addMouseListener(new MouseAdapter() {\n            @Override\n            public void mousePressed(MouseEvent e) {\n                jbLogIn.setBackground(BACKGROUND_BUTTON_PRESSED);\n            }\n\n            @Override\n            public void mouseReleased(MouseEvent e) {\n                jbLogIn.setBackground(BACKGROUND_BUTTON);\n            }\n        });\n\n    }\n\n    private void setButtons() {\n        jpButtons.setLayout(new BoxLayout(jpButtons, BoxLayout.Y_AXIS));\n        jpButtons.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));\n        jpButtons.setOpaque(false);\n\n        setSignInButton();\n        setForgotPasswordButton();\n\n        jpButtons.add(jbSignUp);\n        jpButtons.add(Box.createVerticalStrut(10));\n        jpButtons.add(jbForgotPassword);\n    }\n\n    private void setSignInButton() {\n        jbSignUp.setPreferredSize(DIMENSION_BUTTON_SIGNIN);\n        jbSignUp.setMaximumSize(DIMENSION_BUTTON_SIGNIN);\n        jbSignUp.setAlignmentX(Component.CENTER_ALIGNMENT);\n        jbSignUp.setAlignmentY(Component.CENTER_ALIGNMENT);\n\n        jbSignUp.setBackground(BACKGROUND_BUTTON);\n        jbSignUp.setOpaque(true);\n        jbSignUp.setContentAreaFilled(true);\n    }\n\n    private void setForgotPasswordButton() {\n        jbForgotPassword.setPreferredSize(DIMENSION_BUTTON_LOGIN);\n        jbForgotPassword.setMaximumSize(DIMENSION_BUTTON_LOGIN);\n        jbForgotPassword.setAlignmentX(Component.CENTER_ALIGNMENT);\n        jbForgotPassword.setAlignmentY(Component.CENTER_ALIGNMENT);\n\n        jbForgotPassword.setBackground(BACKGROUND_BUTTON);\n        jbForgotPassword.setOpaque(true);\n        jbForgotPassword.setContentAreaFilled(true);\n    }\n\n    public void showError(String message) {\n        JOptionPane.showMessageDialog(frame, message, \"Error\", JOptionPane.ERROR_MESSAGE);\n    }\n\n\n\n\n\n}\n
+===================================================================
+diff --git a/src/Presentation/LoginView.java b/src/Presentation/LoginView.java
+--- a/src/Presentation/LoginView.java	(revision b4a72e92f20f8fc384ac6741450ff1ad9ed13408)
++++ b/src/Presentation/LoginView.java	(date 1775819446828)
+@@ -9,19 +9,19 @@
+ import java.awt.event.MouseAdapter;
+ import java.awt.event.MouseEvent;
+ 
+-public class LoginView {
++public class LoginView extends JFrame {
+ 
+-    private JFrame frame;
+-    private JImagePanel jpiMain;
++    private final JFrame frame;
++    private final JImagePanel jpiMain;
+     private JPanel jpCentral, jpUsername, jpPassword, jpButtons, jpLogin;
+-    private JLabel jlTitle;
+-    private JButton jbLogIn, jbSignUp, jbForgotPassword;
+-    private JTextField jtfUsername;
+-    private JPasswordField jtfPassword;
++    private final JLabel jlTitle;
++    private final JButton jbLogIn, jbSignUp, jbForgotPassword;
++    private final JTextField jtfUsername;
++    private final JPasswordField jtfPassword;
+ 
+     //DIMENSION CONSTANTS
+-    private final int WIDTH_MAIN_FRAME = 1150;
+-    private final int HEIGHT_MAIN_FRAME = 800;
++    public static final int WIDTH_MAIN_FRAME = 1150;
++    private static final int HEIGHT_MAIN_FRAME = 800;
+     private final Dimension DIMENSION_TEXTFIELD = new Dimension(300, 50);
+     private final Dimension DIMENSION_BUTTON_LOGIN = new Dimension(150, 40);
+     private final Dimension DIMENSION_BUTTON_SIGNIN = new Dimension(250, 50);
+@@ -268,6 +268,4 @@
+ 
+ 
+ 
+-
+-
+ }
+Index: src/Presentation/RegisterView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Presentation;\n\npublic class RegisterView {\n}\n
+===================================================================
+diff --git a/src/Presentation/RegisterView.java b/src/Presentation/RegisterView.java
+--- a/src/Presentation/RegisterView.java	(revision b4a72e92f20f8fc384ac6741450ff1ad9ed13408)
++++ b/src/Presentation/RegisterView.java	(date 1775818479273)
+@@ -1,4 +1,16 @@
+ package Presentation;
+ 
++import javax.swing.*;
++
++//import static Presentation.LoginView.WIDTH_MAIN_FRAME;
++
+ public class RegisterView {
++
++    private final String BACKGROUND_URL = "src/Presentation/Images/background.jpg";
++  //int whatever = WIDTH_MAIN_FRAME;
++
++  private void createComponent() {
++      JPopupMenu popup = new JPopupMenu();
++
++  }
+ }
